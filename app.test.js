@@ -14,8 +14,8 @@ describe('shipFactory', () => {
   });
 
   it('receives and stores boat coordinates', () => {
-    const battleship = shipFactory('battleship', 2, [5,6,7]);
-    expect(battleship.coordinates).toEqual([5,6,7]);
+    const battleship = shipFactory('battleship', 2, [[2,5],[2,6],[2,7]]);
+    expect(battleship.coordinates).toEqual([[2,5],[2,6],[2,7]]);
   })
 
 });
@@ -55,7 +55,7 @@ describe('placeShip', () => {
 
   it('can place multiple ships onto board', () => {
     const patrolBoat = shipFactory('patrolBoat', 2, [[0,4],[0,5]]);
-    const submarine = shipFactory('submarine', 3, [[1,55],[1,56],[1,57]]);
+    const submarine = shipFactory('submarine', 3, [[1,5],[1,6],[1,7]]);
     gameBoard.placeShip(patrolBoat);
     gameBoard.placeShip(submarine);
     const list = ['submarine', 'patrolBoat', 'battleship'];
@@ -81,11 +81,11 @@ describe('receiveAttack', () => {
   });
 
   it('hits an occupied coordinate', () => {
-    // these next tests should make sure ship object takes on a hit in its properties. NOT WRITTEN EITHER FILE
     const newPatrolBoat = shipFactory('newPatrolBoat', 2, [[0,1],[0,2]]);
     gameBoard.placeShip(newPatrolBoat);
     gameBoard.receiveAttack([0,1]);
     const expected = [[0,1]];
+    /* console.table(gameBoard.board) */
     expect(newPatrolBoat.hits).toContain(expect.arrayContaining(expected));
   });
   /*   test('receiveAttack places hit on proper ship', () => {
