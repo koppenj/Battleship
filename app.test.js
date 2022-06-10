@@ -49,6 +49,7 @@ describe('placeShip', () => {
   it('places a ship onto board', () => {
     const battleship = shipFactory('battleship', 3, [[1,5],[1,6],[1,7]]);
     gameBoard.placeShip(battleship);
+    console.log(battleship)
   expect(gameBoard.board).toContain('battleship');
   });
 
@@ -66,10 +67,10 @@ describe('placeShip', () => {
 
 describe('receiveAttack', () => {
   it('tracks missed shots', () => {
-    const patrolBoat = shipFactory('patrolBoat', 2, [[0,4],[0,5]]);
+    const patrolBoat = shipFactory('patrolBoat', 2, [[0][4],[0][5]]);
     gameBoard.placeShip(patrolBoat);
-    gameBoard.receiveAttack([0,5]);
-    const expected = [[0,5]];
+    gameBoard.receiveAttack([0][5]);
+    const expected = [[0][5]];
     expect(gameBoard.missedShots).toEqual(expect.arrayContaining(expected));
   });
 
@@ -81,11 +82,11 @@ describe('receiveAttack', () => {
 
   it('hits an occupied coordinate', () => {
     // these next tests should make sure ship object takes on a hit in its properties. NOT WRITTEN EITHER FILE
-    const newPatrolBoat = shipFactory('patrolBoat', 2, [[0,1],[0,2]]);
+    const newPatrolBoat = shipFactory('newPatrolBoat', 2, [[0,1],[0,2]]);
     gameBoard.placeShip(newPatrolBoat);
     gameBoard.receiveAttack([0,1]);
     const expected = [[0,1]];
-    expect(patrolBoat.hits).toEqual(expect.arrayContaining(expected));
+    expect(newPatrolBoat.hits).toContain(expect.arrayContaining(expected));
   });
   /*   test('receiveAttack places hit on proper ship', () => {
     const patrolBoat = gameBoard.placeShip('patrolBoat', 2, [[0,0], [0,1]]);

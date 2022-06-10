@@ -6,11 +6,7 @@ const shipFactory = function (name, length, coordinates) {
   let hits = [];
 
   isHit = (enemyAttack) => {
-    if (coordinates.includes(enemyAttack)) {
-      hits.push('X');
-    } else {
-      return false;
-    }
+    hits.push(enemyAttack);
   }
 
   isSunk = () => {
@@ -27,8 +23,8 @@ const gameBoard = (() => {
   // board should be styled in css. See tictactoe css for reference
   const board = [];
   (function drawGrid () {
-    for (let i = 0; i < 100; i++) {
-      board[i] = ' ';
+    for (let i = 0; i < 10; i++) {
+      board[i] = new Array(10).fill(' ');
     }
   })();
 
@@ -45,10 +41,9 @@ const gameBoard = (() => {
   }
 
   function receiveAttack(attackCoordinates) {
-
     if (board.find(coordinates => coordinates === attackCoordinates)) {
-      return true;
-      /* shipLocations[coordinates].hits = [attackCoordinates]; */
+      const target = board[attackCoordinates].value;
+      return target.isHit(attackCoordinates);
     } else {
       missedShots.push(attackCoordinates);
       return false;
