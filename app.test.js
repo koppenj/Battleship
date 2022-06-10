@@ -67,7 +67,7 @@ describe('placeShip', () => {
 
 describe('receiveAttack', () => {
   it('tracks missed shots', () => {
-    const patrolBoat = shipFactory('patrolBoat', 2, [[0][4],[0][5]]);
+    const patrolBoat = shipFactory('patrolBoat', 2, [[0,4],[0,5]]);
     gameBoard.placeShip(patrolBoat);
     gameBoard.receiveAttack([0][5]);
     const expected = [[0][5]];
