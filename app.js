@@ -16,10 +16,11 @@ const Ship = function (name, length, coordinates) {
       return false;
     }
   }
-  return {isSunk, isHit, hits, name, coordinates}
+  return {name, length, coordinates, hits, isHit, isSunk}
 }
 
-const gameBoard = function () {
+const Gameboard = function (owner) {
+  this.owner = owner;
   // board should be styled in css. See tictactoe css for reference
   const board = [];
     // fleet is just for future reference for ship size
@@ -33,22 +34,23 @@ const gameBoard = function () {
     }
   })();
 
-  function placeShip(ship, orientation) {
+  function placeShip( ship, position, orientation) {
+    const shipLength = fleet[ship];
+    const fullPosition = [];
+
     if(orientation === 'vertical') {
-      // If all the selected squares are valid (exist and not taken), place it with y coordinate staying the same
-    }
-    if(orientation === 'horizontal') {
-      // If all the selected squares are valid (exist and not taken), place it with x coordinate staying the same
-    }
-    // This places them based on the stored value in the ship object
-    for (let i = 0; i < ship.coordinates.length; i++) {
-      for (let j = 0; j < ship.coordinates.length; j++) {
-        if(ship.coordinates[i] !== undefined) {
-          const position = ship.coordinates[i]
-          board[position[0]][position[1]] = ship;
-        }
+      for (let i = 0; i < shipLength; i++) {
+        fullPosition.push([position[0], (position[1]+ i)]);
       }
     }
+    if(orientation === 'horizontal') {
+      for (let i = 0; i < shipLength; i++) {
+        fullPosition.push([(position[0]+ i), position[1]]);
+      }
+    }
+   fullPosition.forEach((index) => {
+    board[index[0]][index[1]] = ship;
+   })
   }
 
   function receiveAttack(attackCoordinates) {
@@ -77,7 +79,7 @@ const Player = function (name) {
   this.name = name;
 
   attack = (position) => {
-    return gameBoard.receiveAttack(position);
+    return Gameboard.receiveAttack(position);
   }
   randomPlay = () => {
     let x = Math.floor(Math.random() * (10));
@@ -90,5 +92,5 @@ const Player = function (name) {
 }
 
 module.exports.Player = Player;
-module.exports.gameBoard = gameBoard;
+module.exports.Gameboard = Gameboard;
 module.exports.Ship = Ship;

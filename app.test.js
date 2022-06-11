@@ -1,13 +1,18 @@
-const { Ship, gameBoard, Player } = require('./app');
+const { Ship, Gameboard, Player } = require('./app');
 
 
 describe('Ship', () => {
+  // Length, hits, if its sunk
   it('creates object', () => {
     const shipYard = [];
     shipYard.push(Ship(3));
     shipYard.push(Ship(2));
     expect(shipYard.length).toBe(2);
 });
+  it('stores ship length as a property', () => {
+    const lengthTest = Ship('lengthTest', 4);
+    expect(lengthTest.length).toBe(4);
+  })
   it('returns a boolean with isSunk', () => {
     const patrolBoat = Ship(2);
     expect(patrolBoat.isSunk).toBeDefined();
@@ -20,9 +25,9 @@ describe('Ship', () => {
 
 });
 
-describe('gameBoard', () => {
+describe('Gameboard', () => {
   it('connects', () => {
-    expect(gameBoard).toBeDefined();
+    expect(Gameboard).toBeDefined();
   })
 
 
@@ -36,28 +41,28 @@ describe('gameBoard', () => {
     ];
 
     fleet.forEach((ship) => {
-      gameBoard.sunkenShips.push(ship);
+      Gameboard.sunkenShips.push(ship);
     })
 
-    expect(gameBoard.fleetSunk).toBeTruthy();
+    expect(Gameboard.fleetSunk).toBeTruthy();
   });
 });
 
 describe('placeShip', () => {
   it('places a ship onto board', () => {
     const battleship = Ship('battleship', 3, [[1,5],[1,6],[1,7]]);
-    gameBoard.placeShip(battleship);
+    Gameboard.placeShip(battleship);
 
-    expect(gameBoard.board[1][5]).toBe(battleship);
+    expect(Gameboard.board[1][5]).toBe(battleship);
   });
 
   it.skip('can place multiple ships onto board', () => {
     // Code is working. Need to find proper way to test this
     const patrolBoat = Ship('patrolBoat', 2, [[0,4],[0,5]]);
     const submarine = Ship('submarine', 3, [[1,5],[1,6],[1,7]]);
-    gameBoard.placeShip(patrolBoat);
-    gameBoard.placeShip(submarine);
-    const board = gameBoard.board;
+    Gameboard.placeShip(patrolBoat);
+    Gameboard.placeShip(submarine);
+    const board = Gameboard.board;
     const fleet = [patrolBoat, submarine];
     const occupiedPositions = board.flat().filter(position => position !== null);
     expect(occupiedPositions).toContain(fleet);
@@ -67,22 +72,22 @@ describe('placeShip', () => {
 describe('receiveAttack', () => {
   it('tracks missed shots', () => {
     const patrolBoat = Ship('patrolBoat', 2, [[0,4],[0,5]]);
-    gameBoard.placeShip(patrolBoat);
-    gameBoard.receiveAttack([0,6]);
+    Gameboard.placeShip(patrolBoat);
+    Gameboard.receiveAttack([0,6]);
     const expected = [[0,6]];
-    expect(gameBoard.missedShots).toEqual(expect.arrayContaining(expected));
+    expect(Gameboard.missedShots).toEqual(expect.arrayContaining(expected));
   });
 
   it('does not match if received does not contain expected elements', () => {
-    gameBoard.receiveAttack([3,5]);
+    Gameboard.receiveAttack([3,5]);
     const expected = [[9,7]];
-    expect(gameBoard.missedShots).not.toEqual(expect.arrayContaining(expected));
+    expect(Gameboard.missedShots).not.toEqual(expect.arrayContaining(expected));
   });
 
   it('hits an occupied coordinate', () => {
     const newPatrolBoat = Ship('newPatrolBoat', 2, [[0,1],[0,2]]);
-    gameBoard.placeShip(newPatrolBoat);
-    gameBoard.receiveAttack([0,2]);
+    Gameboard.placeShip(newPatrolBoat);
+    Gameboard.receiveAttack([0,2]);
     expect(newPatrolBoat.hits).toStrictEqual([[0,2]]);
   });
 });
@@ -97,10 +102,10 @@ describe('Player', () => {
     const array = James.randomPlay();
     expect(Array.isArray(array)).toBeTruthy();
   })
-  it.skip('can send attack to gameBoard', () => {
+  it.skip('can send attack to Gameboard', () => {
     const James = Player('James');
     const target = James.attack([6,5]);
-    gameBoard.receiveAttack([6,5])
+    Gameboard.receiveAttack([6,5])
     expect(target).toHaveBeenCalled();
   })
 })
