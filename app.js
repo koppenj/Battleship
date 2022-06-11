@@ -16,7 +16,7 @@ const shipFactory = function (name, length, coordinates) {
       return false;
     }
   }
-  return {isSunk, hits, name, coordinates}
+  return {isSunk, isHit, hits, name, coordinates}
 }
 
 const gameBoard = (() => {
@@ -36,22 +36,20 @@ const gameBoard = (() => {
       for (let j = 0; j < ship.coordinates.length; j++) {
         if(ship.coordinates[i] !== undefined) {
           const position = ship.coordinates[i]
-          board[position[0]][position[1]] = ship.name;
+          board[position[0]][position[1]] = ship;
         }
       }
     }
   }
 
   function receiveAttack(attackCoordinates) {
-    const occupiedPositions = board.flat().filter(position => position !== null) // This reduces the board down
+    /* const occupiedPositions = board.flat().filter(position => position !== null) */ // This reduces the board down
     // Rework this function. Im not looking in the right place with the right data structure
-
-    if (occupiedPositions.includes(attackCoordinates)) {
-      const target = board[attackCoordinates[0]][attackCoordinates[1]];
-      return target.isHit(attackCoordinates);
+    let target = board[attackCoordinates[0]][attackCoordinates[1]];
+    if ( target !== null) {
+      target.isHit(attackCoordinates);
     } else {
-      missedShots.push(attackCoordinates);
-      return false;
+      return missedShots.push(attackCoordinates);
     }
   }
 

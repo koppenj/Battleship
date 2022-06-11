@@ -24,9 +24,7 @@ describe('gameBoard', () => {
   it('connects', () => {
     expect(gameBoard).toBeDefined();
   })
-  it('has properties', () => {
-    expect(gameBoard.receiveAttack()).toBeDefined();
-  });
+
   /*
   test('gameBoard tracks sunken ships', () => {
     const fleet = [
@@ -49,19 +47,20 @@ describe('placeShip', () => {
   it('places a ship onto board', () => {
     const battleship = shipFactory('battleship', 3, [[1,5],[1,6],[1,7]]);
     gameBoard.placeShip(battleship);
-    expect(gameBoard.board[1][5]).toMatch('battleship');
+
+    expect(gameBoard.board[1][5]).toBe(battleship);
   });
 
-    // The code IS working, but idk how to use the correct matchers
   it.skip('can place multiple ships onto board', () => {
+    // Code is working. Need to find proper way to test this
     const patrolBoat = shipFactory('patrolBoat', 2, [[0,4],[0,5]]);
     const submarine = shipFactory('submarine', 3, [[1,5],[1,6],[1,7]]);
     gameBoard.placeShip(patrolBoat);
     gameBoard.placeShip(submarine);
     const board = gameBoard.board;
-    // Next line reduces board to an array of strings with names of ships
+    const fleet = [patrolBoat, submarine];
     const occupiedPositions = board.flat().filter(position => position !== null);
-    expect(board).toContain(occupiedPositions);
+    expect(occupiedPositions).toContain(fleet);
   })
 });
 
@@ -69,8 +68,8 @@ describe('receiveAttack', () => {
   it('tracks missed shots', () => {
     const patrolBoat = shipFactory('patrolBoat', 2, [[0,4],[0,5]]);
     gameBoard.placeShip(patrolBoat);
-    gameBoard.receiveAttack([0,5]);
-    const expected = [[0,5]];
+    gameBoard.receiveAttack([0,6]);
+    const expected = [[0,6]];
     expect(gameBoard.missedShots).toEqual(expect.arrayContaining(expected));
   });
 
@@ -83,9 +82,8 @@ describe('receiveAttack', () => {
   it('hits an occupied coordinate', () => {
     const newPatrolBoat = shipFactory('newPatrolBoat', 2, [[0,1],[0,2]]);
     gameBoard.placeShip(newPatrolBoat);
-    gameBoard.receiveAttack([0,3]);
-    // IDK how to write this
-    expect(newPatrolBoat.hits).toContain(expect.arrayContaining([0,3]));
+    gameBoard.receiveAttack([0,2]);
+    expect(newPatrolBoat.hits).toStrictEqual([[0,2]]);
   });
   /*   test('receiveAttack places hit on proper ship', () => {
     const patrolBoat = gameBoard.placeShip('patrolBoat', 2, [[0,0], [0,1]]);
