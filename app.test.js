@@ -91,6 +91,17 @@ describe('Player', () => {
   it('has a name', () => {
     const Josh = Player('Josh');
     expect(Josh).toBeTruthy();
+  });
+  it('can make a random array for attack', () => {
+    const James = Player('James');
+    const array = James.randomPlay();
+    expect(Array.isArray(array)).toBeTruthy();
+  })
+  it.skip('can send attack to gameBoard', () => {
+    const James = Player('James');
+    const target = James.attack([6,5]);
+    gameBoard.receiveAttack([6,5])
+    expect(target).toHaveBeenCalled();
   })
 })
 

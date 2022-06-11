@@ -22,6 +22,8 @@ const ShipFactory = function (name, length, coordinates) {
 const gameBoard = (() => {
   // board should be styled in css. See tictactoe css for reference
   const board = [];
+    // fleet is just for future reference for ship size
+  const fleet = { carrier:5, battleship:4, destroyer:3, submarine:3, patrolBoat:2 }
   const missedShots = [];
   const sunkenShips = [];
 
@@ -44,7 +46,6 @@ const gameBoard = (() => {
 
   function receiveAttack(attackCoordinates) {
     /* const occupiedPositions = board.flat().filter(position => position !== null) */ // This reduces the board down
-    // Rework this function. Im not looking in the right place with the right data structure
     let target = board[attackCoordinates[0]][attackCoordinates[1]];
     if ( target !== null) {
       target.isHit(attackCoordinates);
@@ -65,9 +66,18 @@ const gameBoard = (() => {
 
 const Player = function (name) {
   this.name = name;
-  // fleet is just for future reference for ship size
-  /* fleet = { carrier:5, battleship:4, destroyer:3, submarine:3, patrolBoat:2 } */
-  return { name }
+
+  attack = (position) => {
+    return gameBoard.receiveAttack(position);
+  }
+  randomPlay = () => {
+    let x = Math.floor(Math.random() * (10));
+    let y = Math.floor(Math.random() * (10));
+    const shuffled = [x,y];
+    return shuffled;
+  }
+
+  return { name, attack, randomPlay }
 }
 
 module.exports.Player = Player;
