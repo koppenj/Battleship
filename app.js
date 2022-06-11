@@ -22,14 +22,14 @@ const shipFactory = function (name, length, coordinates) {
 const gameBoard = (() => {
   // board should be styled in css. See tictactoe css for reference
   const board = [];
+  const missedShots = [];
+  const sunkenShips = [];
+
   (function drawGrid () {
     for (let i = 0; i < 10; i++) {
       board[i] = new Array(10).fill(null);
     }
   })();
-
-  const missedShots = [];
-  const sunkenShips = [];
 
   function placeShip(ship) {
     for (let i = 0; i < ship.coordinates.length; i++) {
@@ -60,7 +60,7 @@ const gameBoard = (() => {
       return false;
     }
   }
-  return { board, placeShip, receiveAttack, fleetSunk, missedShots}
+  return { board, placeShip, receiveAttack, fleetSunk, missedShots, sunkenShips}
 })();
 
 module.exports.gameBoard = gameBoard;

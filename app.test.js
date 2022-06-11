@@ -25,22 +25,22 @@ describe('gameBoard', () => {
     expect(gameBoard).toBeDefined();
   })
 
-  /*
-  test('gameBoard tracks sunken ships', () => {
+
+  it('tracks sunken ships', () => {
     const fleet = [
-      carrier = shipFactory('carrier', 5, [10,11,12,13,14]),
-      battleship = shipFactory('battleship', 4, [44,45,46,47]),
-      destroyer = shipFactory('destroyer', 3, [17,18,19]),
-      submarine = shipFactory('submarine', 3, [55,56,57]),
-      patrolBoat = shipFactory('patrolBoat', 2,[0,1]),
+      carrier = shipFactory('carrier', 5, [[5,8],[6,8],[7,8],[8,8],[9,8]]),
+      battleship = shipFactory('battleship', 4, [[2,2],[2,3],[2,4],[2,5]]),
+      destroyer = shipFactory('destroyer', 3, [[2,6],[3,6],[4,6]]),
+      submarine = shipFactory('submarine', 3, [[7,1],[8,1],[9,1]]),
+      patrolBoat = shipFactory('patrolBoat', 2,[[0,0],[1,0]]),
     ];
 
     fleet.forEach((ship) => {
-      gameBoard.sunkenShips.push(`${ship.name}`);
+      gameBoard.sunkenShips.push(ship);
     })
 
     expect(gameBoard.fleetSunk).toBeTruthy();
-  }) */
+  });
 });
 
 describe('placeShip', () => {
@@ -85,9 +85,5 @@ describe('receiveAttack', () => {
     gameBoard.receiveAttack([0,2]);
     expect(newPatrolBoat.hits).toStrictEqual([[0,2]]);
   });
-  /*   test('receiveAttack places hit on proper ship', () => {
-    const patrolBoat = gameBoard.placeShip('patrolBoat', 2, [[0,0], [0,1]]);
-    gameBoard.receiveAttack([0,5])
-  }) */
 });
 
