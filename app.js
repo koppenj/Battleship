@@ -49,16 +49,16 @@ const Gameboard = function (owner) {
       }
     }
     // This next part should only run if we confirm that the fullPosition array only contains vaild board spaces. Cant be out of bounds, or already be taken by another ship
-   /* fullPosition.forEach((index) => {
+   fullPosition.forEach((index) => {
     board[index[0]][index[1]] = ship;
-   }) */
+   })
   }
 
   function receiveAttack(attackCoordinates) {
-    /* const occupiedPositions = board.flat().filter(position => position !== null) */ // This reduces the board down
     let target = board[attackCoordinates[0]][attackCoordinates[1]];
+   // Target doesnt grab an object. its only the name associated with the original object. Fix placeShip?
     if ( target !== null) {
-      target.isHit(attackCoordinates);
+      `${target}`.isHit(attackCoordinates);
     } else {
       return missedShots.push(attackCoordinates);
     }

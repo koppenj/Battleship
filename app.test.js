@@ -32,6 +32,7 @@ describe('Gameboard', () => {
 
 
   it('tracks sunken ships', () => {
+    const testBoard = Gameboard('new');
     const fleet = [
       carrier = Ship('carrier', 5, [[5,8],[6,8],[7,8],[8,8],[9,8]]),
       battleship = Ship('battleship', 4, [[2,2],[2,3],[2,4],[2,5]]),
@@ -41,19 +42,23 @@ describe('Gameboard', () => {
     ];
 
     fleet.forEach((ship) => {
-      Gameboard.sunkenShips.push(ship);
+     testBoard.sunkenShips.push(ship);
     })
 
-    expect(Gameboard.fleetSunk).toBeTruthy();
+    expect(testBoard.fleetSunk).toBeTruthy();
   });
 });
 
 describe('placeShip', () => {
   it('places a ship onto board', () => {
-    const battleship = Ship('battleship', 3, [[1,5],[1,6],[1,7]]);
-    Gameboard.placeShip(battleship);
-
-    expect(Gameboard.board[1][5]).toBe(battleship);
+    const testBoard = Gameboard('testBoard');
+    testBoard.placeShip('battleship', [1,5], 'vertical');
+    const testArray = [[testBoard.board[1][5]], [testBoard.board[1][6]], [testBoard.board[1][7]], [testBoard.board[1][8]]];
+    const expected = [];
+    (function mockArray() {testArray.forEach((space) => {
+      expected.push(space);
+    })})();
+    expect(expected).toStrictEqual([['battleship'], ['battleship'], ['battleship'], ['battleship']]);
   });
 
   it.skip('can place multiple ships onto board', () => {
@@ -71,24 +76,19 @@ describe('placeShip', () => {
 
 describe('receiveAttack', () => {
   it('tracks missed shots', () => {
-    const patrolBoat = Ship('patrolBoat', 2, [[0,4],[0,5]]);
-    Gameboard.placeShip(patrolBoat);
-    Gameboard.receiveAttack([0,6]);
-    const expected = [[0,6]];
-    expect(Gameboard.missedShots).toEqual(expect.arrayContaining(expected));
-  });
-
-  it('does not match if received does not contain expected elements', () => {
-    Gameboard.receiveAttack([3,5]);
-    const expected = [[9,7]];
-    expect(Gameboard.missedShots).not.toEqual(expect.arrayContaining(expected));
+    const testBoard = Gameboard('testBoard');
+    testBoard.placeShip('battleship', [1,5], 'vertical');
+    testBoard.receiveAttack([0,0]);
+    const expected = [[0,0]];
+    expect(testBoard.missedShots).toEqual(expect.arrayContaining(expected));
   });
 
   it('hits an occupied coordinate', () => {
-    const newPatrolBoat = Ship('newPatrolBoat', 2, [[0,1],[0,2]]);
-    Gameboard.placeShip(newPatrolBoat);
-    Gameboard.receiveAttack([0,2]);
-    expect(newPatrolBoat.hits).toStrictEqual([[0,2]]);
+    const testBoard = Gameboard('testBoard');
+    testBoard.placeShip('battleship', [1,5], 'vertical');
+    testBoard.receiveAttack([1,6]);
+    const expected = [[1,6]];
+    expect(battleship.hits).toStrictEqual([[1,6]]);
   });
 });
 
