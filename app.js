@@ -1,5 +1,5 @@
 
-const ShipFactory = function (name, length, coordinates) {
+const Ship = function (name, length, coordinates) {
   this.name = name;
   this.length = length;
   this.coordinates = coordinates;
@@ -19,7 +19,7 @@ const ShipFactory = function (name, length, coordinates) {
   return {isSunk, isHit, hits, name, coordinates}
 }
 
-const gameBoard = (() => {
+const gameBoard = function () {
   // board should be styled in css. See tictactoe css for reference
   const board = [];
     // fleet is just for future reference for ship size
@@ -69,7 +69,9 @@ const gameBoard = (() => {
     }
   }
   return { board, placeShip, receiveAttack, fleetSunk, missedShots, sunkenShips}
-})();
+};
+
+
 
 const Player = function (name) {
   this.name = name;
@@ -89,4 +91,4 @@ const Player = function (name) {
 
 module.exports.Player = Player;
 module.exports.gameBoard = gameBoard;
-module.exports.ShipFactory = ShipFactory;
+module.exports.Ship = Ship;
