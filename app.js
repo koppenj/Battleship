@@ -24,7 +24,7 @@ const gameBoard = (() => {
   const board = [];
   (function drawGrid () {
     for (let i = 0; i < 10; i++) {
-      board[i] = new Array(10).fill(' ');
+      board[i] = new Array(10).fill(null);
     }
   })();
 
@@ -32,17 +32,22 @@ const gameBoard = (() => {
   const sunkenShips = [];
 
   function placeShip(ship) {
-   for (let i = 0; i < ship.coordinates.length; i++) {
-     const location = ship.coordinates[i];
-     location.forEach(position => {
-       board[position] = ship.name;
-     });
-   }
+    for (let i = 0; i < ship.coordinates.length; i++) {
+      for (let j = 0; j < ship.coordinates.length; j++) {
+        if(ship.coordinates[i] !== undefined) {
+          const position = ship.coordinates[i]
+          board[position[0]][position[1]] = ship.name;
+        }
+      }
+    }
   }
 
   function receiveAttack(attackCoordinates) {
-    if (board.find(coordinates => coordinates === attackCoordinates)) {
-      const target = board[attackCoordinates].value;
+    const occupiedPositions = board.flat().filter(position => position !== null) // This reduces the board down
+    // Rework this function. Im not looking in the right place with the right data structure
+
+    if (occupiedPositions.includes(attackCoordinates)) {
+      const target = board[attackCoordinates[0]][attackCoordinates[1]];
       return target.isHit(attackCoordinates);
     } else {
       missedShots.push(attackCoordinates);
