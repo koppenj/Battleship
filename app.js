@@ -33,7 +33,14 @@ const gameBoard = (() => {
     }
   })();
 
-  function placeShip(ship) {
+  function placeShip(ship, orientation) {
+    if(orientation === 'vertical') {
+      // If all the selected squares are valid (exist and not taken), place it with y coordinate staying the same
+    }
+    if(orientation === 'horizontal') {
+      // If all the selected squares are valid (exist and not taken), place it with x coordinate staying the same
+    }
+    // This places them based on the stored value in the ship object
     for (let i = 0; i < ship.coordinates.length; i++) {
       for (let j = 0; j < ship.coordinates.length; j++) {
         if(ship.coordinates[i] !== undefined) {
