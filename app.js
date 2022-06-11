@@ -48,9 +48,10 @@ const Gameboard = function (owner) {
         fullPosition.push([(position[0]+ i), position[1]]);
       }
     }
-   fullPosition.forEach((index) => {
+    // This next part should only run if we confirm that the fullPosition array only contains vaild board spaces. Cant be out of bounds, or already be taken by another ship
+   /* fullPosition.forEach((index) => {
     board[index[0]][index[1]] = ship;
-   })
+   }) */
   }
 
   function receiveAttack(attackCoordinates) {
