@@ -1,5 +1,5 @@
 
-const shipFactory = function (name, length, coordinates) {
+const ShipFactory = function (name, length, coordinates) {
   this.name = name;
   this.length = length;
   this.coordinates = coordinates;
@@ -63,5 +63,13 @@ const gameBoard = (() => {
   return { board, placeShip, receiveAttack, fleetSunk, missedShots, sunkenShips}
 })();
 
+const Player = function (name) {
+  this.name = name;
+  // fleet is just for future reference for ship size
+  /* fleet = { carrier:5, battleship:4, destroyer:3, submarine:3, patrolBoat:2 } */
+  return { name }
+}
+
+module.exports.Player = Player;
 module.exports.gameBoard = gameBoard;
-module.exports.shipFactory = shipFactory;
+module.exports.ShipFactory = ShipFactory;
