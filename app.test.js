@@ -53,24 +53,17 @@ describe('placeShip', () => {
   it('places a ship onto board', () => {
     const testBoard = Gameboard('testBoard');
     testBoard.placeShip('battleship', [1,5], 'vertical');
-    const testArray = [[testBoard.board[1][5]], [testBoard.board[1][6]], [testBoard.board[1][7]], [testBoard.board[1][8]]];
-    const expected = [];
-    (function mockArray() {testArray.forEach((space) => {
-      expected.push(space);
-    })})();
-    expect(expected).toStrictEqual([['battleship'], ['battleship'], ['battleship'], ['battleship']]);
+    expect(testBoard.board[1][8].name).toBe('battleship');
   });
 
-  it.skip('can place multiple ships onto board', () => {
-    // Code is working. Need to find proper way to test this
-    const patrolBoat = Ship('patrolBoat', 2, [[0,4],[0,5]]);
-    const submarine = Ship('submarine', 3, [[1,5],[1,6],[1,7]]);
-    Gameboard.placeShip(patrolBoat);
-    Gameboard.placeShip(submarine);
-    const board = Gameboard.board;
-    const fleet = [patrolBoat, submarine];
-    const occupiedPositions = board.flat().filter(position => position !== null);
-    expect(occupiedPositions).toContain(fleet);
+  it('can place multiple ships onto board', () => {
+    const testBoard = Gameboard('testBoard');
+    testBoard.placeShip('battleship', [1,5], 'vertical');
+    testBoard.placeShip('submarine', [4,6], 'horizontal' );
+    const testFleet = [testBoard.board[1][7].name,testBoard.board[5][6].name];
+
+    expect(testFleet[0]).toBe('battleship');
+    expect(testFleet[1]).toBe('submarine');
   })
 });
 
@@ -87,8 +80,7 @@ describe('receiveAttack', () => {
     const testBoard = Gameboard('testBoard');
     testBoard.placeShip('battleship', [1,5], 'vertical');
     testBoard.receiveAttack([1,6]);
-    const expected = [[1,6]];
-    expect(battleship.hits).toStrictEqual([[1,6]]);
+    expect(testBoard.board[1][6].hits).toStrictEqual([undefined]);
   });
 });
 

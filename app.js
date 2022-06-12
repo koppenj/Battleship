@@ -34,8 +34,8 @@ const Gameboard = function (owner) {
     }
   })();
 
-  function placeShip( ship, position, orientation) {
-    const shipLength = fleet[ship];
+  function placeShip( name, position, orientation) {
+    const shipLength = fleet[name];
     const fullPosition = [];
 
     if(orientation === 'vertical') {
@@ -48,7 +48,9 @@ const Gameboard = function (owner) {
         fullPosition.push([(position[0]+ i), position[1]]);
       }
     }
-    // This next part should only run if we confirm that the fullPosition array only contains vaild board spaces. Cant be out of bounds, or already be taken by another ship
+    const ship = Ship(name, shipLength, fullPosition);
+    // This next part should only run if we confirm that the fullPosition array only contains vaild board spaces.
+    // Cant be out of bounds, or already be taken by another ship!
    fullPosition.forEach((index) => {
     board[index[0]][index[1]] = ship;
    })
@@ -58,7 +60,7 @@ const Gameboard = function (owner) {
     let target = board[attackCoordinates[0]][attackCoordinates[1]];
    // Target doesnt grab an object. its only the name associated with the original object. Fix placeShip?
     if ( target !== null) {
-      `${target}`.isHit(attackCoordinates);
+     return board[attackCoordinates[0]][attackCoordinates[1]].isHit();
     } else {
       return missedShots.push(attackCoordinates);
     }
