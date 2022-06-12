@@ -104,5 +104,10 @@ describe('Player', () => {
     const array = James.randomPlay();
     expect(Array.isArray(array)).toBeTruthy();
   });
+  it.skip(`won't repeat random attacks`, () => {
+    const Watson = Player('Watson');
+    const randomFire = Watson.randomPlay();
+    // There are 100 possibiities, i will have to code in restrictions that watch the missed and hit states!
+  })
 });
 
