@@ -34,11 +34,10 @@ const Gameboard = function (owner) {
   })();
 
   function placeShip( name, position, orientation) {
-    debugger;
     const shipLength = fleet[name];
     const fullPosition = [];
     if(Array.isArray(position) && inRange(position[0]) && inRange(position[1]) ) {
-      if(orientation === 'vertical') {
+      if(orientation === 'horizontal') {
         for (let i = 0; i < shipLength; i++) {
           if(board[position[0]][position[1]] === null) {
             fullPosition.push([position[0], (position[1]+ i)]);
@@ -46,7 +45,7 @@ const Gameboard = function (owner) {
         }
       }
 
-      if(orientation === 'horizontal') {
+      if(orientation === 'vertical') {
         for (let i = 0; i < shipLength; i++) {
           if(board[position[0]][position[1]] === null) {
             fullPosition.push([(position[0]+ i), position[1]]);
@@ -56,17 +55,9 @@ const Gameboard = function (owner) {
     } else {
       return false;
     }
-    // Cant already be taken by another ship,
-    // So If every index in fullPosition is a null value on board, then proceed
-    function fullPositionTest(fullPosition) {
-      fullPosition.forEach((position) => {
-        if(board[position[0]][position[1]] !== null) {
-          return false;
-        }
-     });
-    }
-
-    if(fullPosition.length > 0 && (fullPositionTest(fullPosition) !== false) ) {
+    /*  Last Check! The fullPosition array will only be vaild if every requested space for a new ship is available
+      This whole function would be a good candidate to implement Throw Error, no?  */
+    if(fullPosition.length === shipLength ) {
       const ship = Ship(name, shipLength, fullPosition);
       fullPosition.forEach((index) => {
         board[index[0]][index[1]] = ship;

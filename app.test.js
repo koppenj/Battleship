@@ -52,14 +52,14 @@ describe('placeShip', () => {
   it('places a ship onto board', () => {
     const testBoard = Gameboard('testBoard');
     testBoard.placeShip('battleship', [1,5], 'vertical');
-    expect(testBoard.board[1][8].name).toBe('battleship');
+    expect(testBoard.board[3][5].name).toBe('battleship');
   });
 
   it('can place multiple ships onto board', () => {
     const testBoard = Gameboard('testBoard');
     testBoard.placeShip('battleship', [1,5], 'vertical');
     testBoard.placeShip('submarine', [4,6], 'horizontal' );
-    const testFleet = [testBoard.board[1][7],testBoard.board[5][6]];
+    const testFleet = [testBoard.board[3][5],testBoard.board[4][8]];
 
     expect(testFleet[0].name).toBe('battleship');
     expect(testFleet[1].name).toBe('submarine');
@@ -89,8 +89,8 @@ describe('receiveAttack', () => {
   it('hits an occupied coordinate', () => {
     const testBoard = Gameboard('testBoard');
     testBoard.placeShip('battleship', [1,5], 'vertical');
-    testBoard.receiveAttack([1,6]);
-    expect(testBoard.board[1][6].hits).toStrictEqual([[1,6]]);
+    testBoard.receiveAttack([3,5]);
+    expect(testBoard.board[3][5].hits).toStrictEqual([[3,5]]);
   });
 });
 
