@@ -80,7 +80,7 @@ describe('receiveAttack', () => {
     const testBoard = Gameboard('testBoard');
     testBoard.placeShip('battleship', [1,5], 'vertical');
     testBoard.receiveAttack([1,6]);
-    expect(testBoard.board[1][6].hits).toStrictEqual([undefined]);
+    expect(testBoard.board[1][6].hits).toStrictEqual([[1,6]]);
   });
 });
 
@@ -94,10 +94,9 @@ describe('Player', () => {
     const array = James.randomPlay();
     expect(Array.isArray(array)).toBeTruthy();
   })
-  it.skip('can send attack to Gameboard', () => {
+  it('can send attack to Gameboard', () => {
     const James = Player('James');
-    const target = James.attack([6,5]);
-    Gameboard.receiveAttack([6,5])
+    const target = James.receiveAttack([6,5]);
     expect(target).toHaveBeenCalled();
   })
 })

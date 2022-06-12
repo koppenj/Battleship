@@ -37,6 +37,7 @@ const Gameboard = function (owner) {
   function placeShip( name, position, orientation) {
     const shipLength = fleet[name];
     const fullPosition = [];
+    const missedShots = [];
 
     if(orientation === 'vertical') {
       for (let i = 0; i < shipLength; i++) {
@@ -58,11 +59,12 @@ const Gameboard = function (owner) {
 
   function receiveAttack(attackCoordinates) {
     let target = board[attackCoordinates[0]][attackCoordinates[1]];
-   // Target doesnt grab an object. its only the name associated with the original object. Fix placeShip?
     if ( target !== null) {
-     return board[attackCoordinates[0]][attackCoordinates[1]].isHit();
+      board[attackCoordinates[0]][attackCoordinates[1]].isHit(attackCoordinates);
+      return true;
     } else {
-      return missedShots.push(attackCoordinates);
+        missedShots.push(attackCoordinates);
+        return false;
     }
   }
 
@@ -81,9 +83,6 @@ const Gameboard = function (owner) {
 const Player = function (name) {
   this.name = name;
 
-  attack = (position) => {
-    return Gameboard.receiveAttack(position);
-  }
   randomPlay = () => {
     let x = Math.floor(Math.random() * (10));
     let y = Math.floor(Math.random() * (10));
@@ -91,7 +90,7 @@ const Player = function (name) {
     return shuffled;
   }
 
-  return { name, attack, randomPlay }
+  return { name, randomPlay }
 }
 
 module.exports.Player = Player;
