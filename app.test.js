@@ -59,15 +59,21 @@ describe('placeShip', () => {
     const testBoard = Gameboard('testBoard');
     testBoard.placeShip('battleship', [1,5], 'vertical');
     testBoard.placeShip('submarine', [4,6], 'horizontal' );
-    const testFleet = [testBoard.board[1][7].name,testBoard.board[5][6].name];
+    const testFleet = [testBoard.board[1][7],testBoard.board[5][6]];
 
-    expect(testFleet[0]).toBe('battleship');
-    expect(testFleet[1]).toBe('submarine');
+    expect(testFleet[0].name).toBe('battleship');
+    expect(testFleet[1].name).toBe('submarine');
   })
   it('returns false if position is invalid', () => {
     const testBoard = Gameboard('testBoard');
 
     expect(testBoard.placeShip('battleship', [11,55], 'vertical')).toBeFalsy();
+  })
+  it(`won't let you overlap boat position`, () => {
+    const testBoard = Gameboard('testBoard');
+    testBoard.placeShip('carrier', [5,5], 'horizontal');
+    const badBoat = testBoard.placeShip('patrolBoat', [5,5], 'horizontal');
+    expect(badBoat).toBeFalsy();
   })
 });
 

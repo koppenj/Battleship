@@ -34,26 +34,39 @@ const Gameboard = function (owner) {
   })();
 
   function placeShip( name, position, orientation) {
+    debugger;
     const shipLength = fleet[name];
     const fullPosition = [];
-
     if(Array.isArray(position) && inRange(position[0]) && inRange(position[1]) ) {
       if(orientation === 'vertical') {
         for (let i = 0; i < shipLength; i++) {
-          fullPosition.push([position[0], (position[1]+ i)]);
+          if(board[position[0]][position[1]] === null) {
+            fullPosition.push([position[0], (position[1]+ i)]);
+          }
         }
       }
+
       if(orientation === 'horizontal') {
         for (let i = 0; i < shipLength; i++) {
-          fullPosition.push([(position[0]+ i), position[1]]);
+          if(board[position[0]][position[1]] === null) {
+            fullPosition.push([(position[0]+ i), position[1]]);
+          }
         }
       }
     } else {
       return false;
     }
-    // This next part should only run if we confirm that the fullPosition array only contains vaild board spaces.
-    // Cant be out of bounds, or already be taken by another ship!
-    if(fullPosition.length > 0) {
+    // Cant already be taken by another ship,
+    // So If every index in fullPosition is a null value on board, then proceed
+    function fullPositionTest(fullPosition) {
+      fullPosition.forEach((position) => {
+        if(board[position[0]][position[1]] !== null) {
+          return false;
+        }
+     });
+    }
+
+    if(fullPosition.length > 0 && (fullPositionTest(fullPosition) !== false) ) {
       const ship = Ship(name, shipLength, fullPosition);
       fullPosition.forEach((index) => {
         board[index[0]][index[1]] = ship;
@@ -61,17 +74,21 @@ const Gameboard = function (owner) {
     } else {
       return false;
     }
+    return true;
   }
 
   function receiveAttack(attackCoordinates) {
-    // attack coordinates have to be valid
-    let target = board[attackCoordinates[0]][attackCoordinates[1]];
-    if ( target !== null) {
-      board[attackCoordinates[0]][attackCoordinates[1]].isHit(attackCoordinates);
-      return true;
+    if(inRange(attackCoordinates[0]) && inRange(attackCoordinates[1])) {
+      let target = board[attackCoordinates[0]][attackCoordinates[1]];
+      if ( target !== null) {
+        board[attackCoordinates[0]][attackCoordinates[1]].isHit(attackCoordinates);
+        return true;
+      } else {
+          missedShots.push(attackCoordinates);
+          return false;
+      }
     } else {
-        missedShots.push(attackCoordinates);
-        return false;
+      return false;
     }
   }
 
