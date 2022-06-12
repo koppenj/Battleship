@@ -2,7 +2,6 @@ const { Ship, Gameboard, Player } = require('./app');
 
 
 describe('Ship', () => {
-  // Length, hits, if its sunk
   it('creates object', () => {
     const shipYard = [];
     shipYard.push(Ship(3));
@@ -65,6 +64,11 @@ describe('placeShip', () => {
     expect(testFleet[0]).toBe('battleship');
     expect(testFleet[1]).toBe('submarine');
   })
+  it('returns false if position is invalid', () => {
+    const testBoard = Gameboard('testBoard');
+
+    expect(testBoard.placeShip('battleship', [11,55], 'vertical')).toBeFalsy();
+  })
 });
 
 describe('receiveAttack', () => {
@@ -89,15 +93,10 @@ describe('Player', () => {
     const Josh = Player('Josh');
     expect(Josh).toBeTruthy();
   });
-  it('can make a random array for attack', () => {
+  it('can make a random attack for computer', () => {
     const James = Player('James');
     const array = James.randomPlay();
     expect(Array.isArray(array)).toBeTruthy();
-  })
-  it('can send attack to Gameboard', () => {
-    const James = Player('James');
-    const target = James.receiveAttack([6,5]);
-    expect(target).toHaveBeenCalled();
-  })
-})
+  });
+});
 

@@ -21,12 +21,11 @@ const Ship = function (name, length, coordinates) {
 
 const Gameboard = function (owner) {
   this.owner = owner;
-  // board should be styled in css. See tictactoe css for reference
   const board = [];
-    // fleet is just for future reference for ship size
-  const fleet = { carrier:5, battleship:4, destroyer:3, submarine:3, patrolBoat:2 }
   const missedShots = [];
   const sunkenShips = [];
+  // fleet is used to reference ship lengths
+  const fleet = { carrier:5, battleship:4, destroyer:3, submarine:3, patrolBoat:2 };
 
   (function drawGrid () {
     for (let i = 0; i < 10; i++) {
@@ -37,27 +36,35 @@ const Gameboard = function (owner) {
   function placeShip( name, position, orientation) {
     const shipLength = fleet[name];
     const fullPosition = [];
-    const missedShots = [];
 
-    if(orientation === 'vertical') {
-      for (let i = 0; i < shipLength; i++) {
-        fullPosition.push([position[0], (position[1]+ i)]);
+    if(Array.isArray(position) && inRange(position[0]) && inRange(position[1]) ) {
+      if(orientation === 'vertical') {
+        for (let i = 0; i < shipLength; i++) {
+          fullPosition.push([position[0], (position[1]+ i)]);
+        }
       }
-    }
-    if(orientation === 'horizontal') {
-      for (let i = 0; i < shipLength; i++) {
-        fullPosition.push([(position[0]+ i), position[1]]);
+      if(orientation === 'horizontal') {
+        for (let i = 0; i < shipLength; i++) {
+          fullPosition.push([(position[0]+ i), position[1]]);
+        }
       }
+    } else {
+      return false;
     }
-    const ship = Ship(name, shipLength, fullPosition);
     // This next part should only run if we confirm that the fullPosition array only contains vaild board spaces.
     // Cant be out of bounds, or already be taken by another ship!
-   fullPosition.forEach((index) => {
-    board[index[0]][index[1]] = ship;
-   })
+    if(fullPosition.length > 0) {
+      const ship = Ship(name, shipLength, fullPosition);
+      fullPosition.forEach((index) => {
+        board[index[0]][index[1]] = ship;
+      });
+    } else {
+      return false;
+    }
   }
 
   function receiveAttack(attackCoordinates) {
+    // attack coordinates have to be valid
     let target = board[attackCoordinates[0]][attackCoordinates[1]];
     if ( target !== null) {
       board[attackCoordinates[0]][attackCoordinates[1]].isHit(attackCoordinates);
@@ -75,6 +82,11 @@ const Gameboard = function (owner) {
       return false;
     }
   }
+  function inRange(x) {
+    // I help determine if coordinate inputs are valid
+    return ((x)*(x-9) <= 0);
+  }
+
   return { board, placeShip, receiveAttack, fleetSunk, missedShots, sunkenShips}
 };
 
@@ -89,7 +101,6 @@ const Player = function (name) {
     const shuffled = [x,y];
     return shuffled;
   }
-
   return { name, randomPlay }
 }
 
