@@ -104,10 +104,13 @@ describe('Player', () => {
     const array = James.randomPlay();
     expect(Array.isArray(array)).toBeTruthy();
   });
-  it.skip(`won't repeat random attacks`, () => {
+  it.skip(`won't repeat attacks`, () => {
+    const testBoard = Gameboard('testBoard');
     const Watson = Player('Watson');
-    const randomFire = Watson.randomPlay();
-    // There are 100 possibiities, i will have to code in restrictions that watch the missed and hit states!
-  })
+    testBoard.receiveAttack([0,0]);
+    //   There are 100 possibiities, So there is a private variable inside Player that tracks all attacks from computer, and
+    // calls itself if it repeats. I think
+    expect('something').toBe('nothing');
+  });
 });
 

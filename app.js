@@ -102,12 +102,19 @@ const Gameboard = function (owner) {
 
 const Player = function (name) {
   this.name = name;
+  const _attackList = [];
 
   randomPlay = () => {
     let x = Math.floor(Math.random() * (10));
     let y = Math.floor(Math.random() * (10));
     const shuffled = [x,y];
-    return shuffled;
+
+    if(_attackList.includes(shuffled)) {
+      return randomPlay();
+    } else {
+      _attackList.push(shuffled);
+      return shuffled;
+    }
   }
   return { name, randomPlay }
 }
