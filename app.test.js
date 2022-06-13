@@ -1,4 +1,4 @@
-const { Ship, Gameboard, Player } = require('./app');
+const { Ship, Gameboard, Player, game } = require('./app');
 
 
 describe('Ship', () => {
@@ -113,4 +113,12 @@ describe('Player', () => {
     expect('something').toBe('nothing');
   });
 });
+
+describe('Game', () => {
+  it('creates a new game with user and computer players', () => {
+    // This will be deleted later. Confirming IIFE is working correctly
+    expect(game.user).toBeTruthy();
+    expect(game.computer).toBeTruthy();
+  })
+})
 

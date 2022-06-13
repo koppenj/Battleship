@@ -19,8 +19,7 @@ const Ship = function (name, length, coordinates) {
   return {name, length, coordinates, hits, isHit, isSunk}
 }
 
-const Gameboard = function (owner) {
-  this.owner = owner;
+const Gameboard = function () {
   const board = [];
   const missedShots = [];
   const sunkenShips = [];
@@ -119,6 +118,18 @@ const Player = function (name) {
   return { name, randomPlay }
 }
 
+const game = (() => {
+  const user = Player('user');
+  const userBoard = Gameboard('userGrid');
+
+  const computer = Player('computer');
+  const computerBoard = Gameboard('computerGrid');
+
+  let playerTurn = user;
+  return { user, computer }
+})();
+
 module.exports.Player = Player;
 module.exports.Gameboard = Gameboard;
 module.exports.Ship = Ship;
+module.exports.game = game;
