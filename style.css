@@ -1,0 +1,86 @@
+@import './src/normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Nobile:ital,wght@0,500;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
+
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Nobile', sans-serif;
+}
+
+header > h1 {
+  text-align: center;
+  font-family: 'Ultra', serif;
+  font-size: 3.5em;
+  text-decoration: underline;
+}
+
+div#app {
+  background-color: black;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+div#controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: ivory;
+  max-height: 15vh;
+  width: 100%;
+  background-image:url(./src/img/small-ship.png) ;
+  background-size: contain;
+
+}
+
+button#newGame {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+button#newGame:hover {
+  transform: scale(1.1);
+  transition: all 0.1s ease-in-out;
+  animation: animate 2s infinite;
+}
+/* Maybe add this animate to a click event? */
+@keyframes animate {
+  from { transform:rotate(0deg);
+  }
+  to { transform: rotate(360deg);}
+}
+
+div#board {
+  background-color: red;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+}
+
+div#board > * {
+  margin: 20px;
+  width: 50%;
+  border: 1px solid black;
+}
+
+#enemyGrid {
+  background-color: blue;
+}
+
+#playerGrid {
+  background-color: orange;
+}
+
+
+
+
+footer {
+  position: fixed;
+  bottom: 0;
+  max-height: 2rem;
+}
