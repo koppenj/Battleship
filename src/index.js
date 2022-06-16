@@ -3,3 +3,6 @@ const test = () => {
 };
 test();
 
+import { drawBoards } from "./UI";
+
+drawBoards()
