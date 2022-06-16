@@ -1,4 +1,4 @@
-const { Ship, Gameboard, Player, game } = require('./app');
+const { Ship, Gameboard, Player, game } = require('./src/app');
 
 
 describe('Ship', () => {

@@ -6,6 +6,7 @@ body {
   background-color: black;
   color: white;
   font-family: 'Nobile', sans-serif;
+  overflow-y: visible;
 }
 
 header > h1 {
@@ -57,23 +58,39 @@ button#newGame:hover {
 
 div#board {
   background-color: red;
-  height: 50%;
+  height: auto;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 div#board > * {
-  margin: 20px;
-  width: 50%;
+  margin: 2em;
+  width: 40%;
   border: 1px solid black;
 }
 
 #enemyGrid {
   background-color: blue;
+  display: grid;
+  border: 1px solid black;
 }
 
 #playerGrid {
   background-color: orange;
+  display: grid;
+  border: 1px solid black;
+}
+
+div.gridCell {
+  border: #ededed 0.5px;
+  border-style: none solid solid none;
+  aspect-ratio: 1;
+  text-align: center;
+}
+
+div.gridCell:hover {
+  background-color: slategray;
 }
 
 
@@ -82,5 +99,5 @@ div#board > * {
 footer {
   position: fixed;
   bottom: 0;
-  max-height: 2rem;
+  max-height: 1rem;
 }

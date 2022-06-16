@@ -126,7 +126,7 @@ const game = (() => {
   const computerBoard = Gameboard('computerGrid');
 
   let playerTurn = user;
-  return { user, computer }
+  return { user, computer, userBoard, computerBoard }
 })();
 
 module.exports.Player = Player;
