@@ -31,7 +31,7 @@ div#controls {
   background-color: ivory;
   max-height: 15vh;
   width: 100%;
-  background-image:url(./src/img/small-ship.png) ;
+  background-image:url('../img/small-ship.png') ;
   background-size: contain;
 }
 
