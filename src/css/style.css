@@ -1,4 +1,4 @@
-@import './src/normalize.css';
+@import './src/css/normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Nobile:ital,wght@0,500;1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
 
@@ -33,7 +33,18 @@ div#controls {
   width: 100%;
   background-image:url(./src/img/small-ship.png) ;
   background-size: contain;
+}
 
+section#userNav {
+  background-color: purple;
+  height: 3rem;
+  display: flex;
+  gap: 50%;
+  flex-direction: row;
+}
+div.shipActions {
+  display: flex;
+  align-items: center;
 }
 
 button#newGame {
@@ -50,12 +61,12 @@ button#newGame:hover {
   animation: animate 2s infinite;
 }
 /* Maybe add this animate to a click event? */
-@keyframes animate {
+/* @keyframes animate {
   from { transform:rotate(0deg);
   }
   to { transform: rotate(360deg);}
 }
-
+ */
 div#board {
   background-color: red;
   height: auto;
@@ -70,16 +81,17 @@ div#board > * {
   border: 1px solid black;
 }
 
-#enemyGrid {
-  background-color: blue;
+div.grids {
   display: grid;
   border: 1px solid black;
 }
 
 #playerGrid {
   background-color: orange;
-  display: grid;
-  border: 1px solid black;
+}
+
+#enemyGrid {
+  background-color: blue;
 }
 
 div.gridCell {
@@ -92,9 +104,6 @@ div.gridCell {
 div.gridCell:hover {
   background-color: slategray;
 }
-
-
-
 
 footer {
   position: fixed;
