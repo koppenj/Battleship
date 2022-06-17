@@ -1,4 +1,4 @@
-@import './src/css/normalize.css';
+@import url('./normalize.css');
 @import url('https://fonts.googleapis.com/css2?family=Nobile:ital,wght@0,500;1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
 
@@ -37,14 +37,16 @@ div#controls {
 
 section#userNav {
   background-color: purple;
-  height: 3rem;
+  height: 10rem;
   display: flex;
-  gap: 50%;
-  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
 }
 div.shipActions {
-  display: flex;
+  display: inherit;
+  width: 100%;
   align-items: center;
+
 }
 
 button#newGame {
