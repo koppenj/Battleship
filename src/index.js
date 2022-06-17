@@ -1,6 +1,6 @@
-const test = () => {
-  console.log( 'test' );
-};
-test();
+import { autoPlaceShips, drawBoards, turnControl } from "./UI";
+
 drawBoards();
-import { drawBoards } from "./UI";
+autoPlaceShips();
+turnControl();
+

@@ -52,6 +52,7 @@ const Gameboard = function () {
         }
       }
     } else {
+      console.error('Wrong coordinate format');
       return false;
     }
     /*  Last Check! The fullPosition array will only be vaild if every requested space for a new ship is available
@@ -62,6 +63,7 @@ const Gameboard = function () {
         board[index[0]][index[1]] = ship;
       });
     } else {
+      console.error('Collision issue With' + ` ${name}` + '. Check placement.');
       return false;
     }
     return true;
@@ -125,8 +127,8 @@ const game = (() => {
   const computer = Player('computer');
   const computerBoard = Gameboard('computerGrid');
 
-  let playerTurn = user;
-  return { user, computer, userBoard, computerBoard }
+  let playerTurn = computer;
+  return { user, computer, userBoard, computerBoard, playerTurn }
 })();
 
 module.exports.Player = Player;
