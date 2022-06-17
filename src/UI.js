@@ -21,4 +21,20 @@ function drawBoards () {
     }
   })
 };
+
+(function autoPlaceShips() {
+  game.userBoard.placeShip('carrier', [4,4], 'vertical');
+  game.userBoard.placeShip('battleship', [0,0], 'horizontal');
+  game.userBoard.placeShip('destroyer', [6,6], 'horizontal');
+  game.userBoard.placeShip('submarine', [5,0], 'vertical');
+  game.userBoard.placeShip('patrolBoat', [5,5], 'horizontal');
+
+  game.computerBoard.placeShip('carrier', [4,4], 'vertical');
+  game.computerBoard.placeShip('battleship', [0,0], 'horizontal');
+  game.computerBoard.placeShip('destroyer', [6,6], 'horizontal');
+  game.computerBoard.placeShip('submarine', [5,0], 'vertical');
+  game.computerBoard.placeShip('patrolBoat', [5,5], 'horizontal');
+  console.table(game.userBoard.board)
+
+})();
 export { drawBoards }
