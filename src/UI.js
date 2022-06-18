@@ -1,4 +1,4 @@
-function drawBoards () {
+export function drawBoards () {
   const playerGrid = document.querySelector('#playerGrid');
   const enemyGrid = document.querySelector('#enemyGrid');
 
@@ -20,7 +20,7 @@ function drawBoards () {
   })
 };
 
-function autoPlaceShips() {
+export function autoPlaceShips() {
     game.userBoard.placeShip('carrier', [4,4], 'vertical');
     game.userBoard.placeShip('battleship', [0,0], 'horizontal');
     game.userBoard.placeShip('destroyer', [6,6], 'horizontal');
@@ -34,9 +34,7 @@ function autoPlaceShips() {
     game.computerBoard.placeShip('patrolBoat', [5,5], 'horizontal');
 }
 
-function messageControl (message) {
+export function messageControl (message) {
   const notification = document.getElementById('messages');
   return notification.textContent = message;
 }
-
-export { drawBoards, autoPlaceShips, messageControl }

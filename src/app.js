@@ -1,5 +1,3 @@
-/* import { drawBoards, autoPlaceShips } from "./UI"; */
-
 const Ship = function (name, length, coordinates) {
   this.name = name;
   this.length = length;
@@ -118,9 +116,8 @@ const Player = function (name) {
   }
 
   computerAttack = () => {
-     // This next segment should be moved to its own function not in the dom, maybe an AI/CPU module.
      let attack = game.computer.randomPlay();
-     console.log(attack);
+
      let result =  game.userBoard.receiveAttack(attack);
      if (result) {
        console.log( 'HIT')
@@ -135,7 +132,7 @@ const Player = function (name) {
   return { name, randomPlay }
 }
 
-const game = () => {
+function init() {
   const user = Player('user');
   const userBoard = Gameboard('userGrid');
   const computer = Player('computer');
@@ -144,18 +141,17 @@ const game = () => {
   UI.autoPlaceShips();
   UI.drawBoard();
 
- // UI.messageControl(playerTurn + `'s turn!`);
+  // UI.messageControl(playerTurn + `'s turn!`);
   if (whoIsFiring === user) {
     computerBoard.receiveAttack();
     playerTurn = computer;
   }
-  if(whoIsFiring === computer) {
+  if (whoIsFiring === computer) {
     computer.computerAttack();
     playerTurn = user;
   }
-};
-
+}
+/* module.exports.init = init; */
 module.exports.Player = Player;
 module.exports.Gameboard = Gameboard;
 module.exports.Ship = Ship;
-module.exports.game = game;
