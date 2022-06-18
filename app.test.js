@@ -115,7 +115,7 @@ describe('Player', () => {
 });
 
 describe('Game', () => {
-  it('creates a new game with user and computer players', () => {
+  it.skip('creates a new game with user and computer players', () => {
     // This will be deleted later. Confirming IIFE is working correctly
     expect(game.user).toBeTruthy();
     expect(game.computer).toBeTruthy();

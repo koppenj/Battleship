@@ -42,7 +42,7 @@ section#userNav {
   justify-content: center;
   gap: 1rem;
 }
-div.shipActions {
+div.notifications {
   display: inherit;
   width: 100%;
   align-items: center;

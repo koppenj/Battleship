@@ -1,6 +1,3 @@
-import { autoPlaceShips, drawBoards, turnControl } from "./UI";
+import { autoPlaceShips, drawBoards } from "./UI";
 
-drawBoards();
-autoPlaceShips();
-turnControl();
 

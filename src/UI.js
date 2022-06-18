@@ -1,5 +1,3 @@
-import { game } from './app';
-
 function drawBoards () {
   const playerGrid = document.querySelector('#playerGrid');
   const enemyGrid = document.querySelector('#enemyGrid');
@@ -36,27 +34,9 @@ function autoPlaceShips() {
     game.computerBoard.placeShip('patrolBoat', [5,5], 'horizontal');
 }
 
-function turnControl() {
-  console.log(game.playerTurn)
-  const whoIsFiring = game.playerTurn;
-  if (whoIsFiring === game.user) {
-    console.log(game.user);
-  }
-
-  if(whoIsFiring === game.computer) {
-    let attack = game.computer.randomPlay();
-    console.log(attack)
-    let result =  game.userBoard.receiveAttack(attack);
-    if (result) {
-      console.log( 'HIT')
-      game.playerTurn = game.computer;
-      console.log(game.playerTurn)
-    } else {
-      console.log('MISS')
-      game.playerTurn = game.user;
-      console.log(game.playerTurn)
-    }
-  }
-
+function messageControl (message) {
+  const notification = document.getElementById('messages');
+  return notification.textContent = message;
 }
-export { drawBoards, autoPlaceShips, turnControl }
+
+export { drawBoards, autoPlaceShips, messageControl }
