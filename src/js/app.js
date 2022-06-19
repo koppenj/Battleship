@@ -1,21 +1,25 @@
-const Ship = function (name, length, coordinates) {
-  this.name = name;
-  this.length = length;
-  this.coordinates = coordinates;
-  let hits = [];
+import * as UI from './UI';
 
-  isHit = (enemyAttack) => {
-    hits.push(enemyAttack);
-  }
+class Ship {
+  constructor(name, length, coordinates) {
+    this.name = name;
+    this.length = length;
+    this.coordinates = coordinates;
+    let hits = [];
 
-  isSunk = () => {
-    if(hits.length >= length) {
-      return true;
-    } else {
-      return false;
-    }
+    isHit = (enemyAttack) => {
+      hits.push(enemyAttack);
+    };
+
+    isSunk = () => {
+      if (hits.length >= length) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+    return { name, length, coordinates, hits, isHit, isSunk };
   }
-  return {name, length, coordinates, hits, isHit, isSunk}
 }
 
 const Gameboard = function () {
@@ -98,60 +102,46 @@ const Gameboard = function () {
   return { board, placeShip, receiveAttack, fleetSunk, missedShots, sunkenShips}
 }
 
-const Player = function (name) {
-  this.name = name;
-  const _attackList = [];
+class Player {
+  constructor(name) {
+    this.name = name;
+    this.attackList = [];
+  }
+    randomPlay() {
+      let x = Math.floor(Math.random() * (10));
+      let y = Math.floor(Math.random() * (10));
+      const shuffled = [x, y];
 
-  randomPlay = () => {
-    let x = Math.floor(Math.random() * (10));
-    let y = Math.floor(Math.random() * (10));
-    const shuffled = [x,y];
-
-    if(_attackList.includes(shuffled)) {
-      return randomPlay();
-    } else {
-      _attackList.push(shuffled);
-      return shuffled;
+      if (this.attackList.includes(shuffled)) {
+        return randomPlay();
+      } else {
+        this.attackList.push(shuffled);
+        return shuffled;
+      }
     }
   }
 
-  computerAttack = () => {
-     let attack = game.computer.randomPlay();
-
-     let result =  game.userBoard.receiveAttack(attack);
-     if (result) {
-       console.log( 'HIT')
-       game.playerTurn = game.computer;
-       console.log(game.playerTurn);
-     } else {
-       console.log('MISS')
-       game.playerTurn = game.user;
-       console.log(game.playerTurn);
-     }
-  }
-  return { name, randomPlay }
-}
-
-function init() {
-  const user = Player('user');
-  const userBoard = Gameboard('userGrid');
-  const computer = Player('computer');
-  const computerBoard = Gameboard('computerGrid');
+export function game() {
+  console.log('ehlllll');
+  const user = new Player('user');
+  const userBoard = new Gameboard('userGrid');
+  const computer = new Player('computer');
+  const computerBoard = new Gameboard('computerGrid');
   let playerTurn = computer;
-  UI.autoPlaceShips();
-  UI.drawBoard();
 
-  // UI.messageControl(playerTurn + `'s turn!`);
-  if (whoIsFiring === user) {
+
+  UI.messageControl(playerTurn.name + `'s turn!`);
+  if (playerTurn === user) {
     computerBoard.receiveAttack();
     playerTurn = computer;
   }
-  if (whoIsFiring === computer) {
-    computer.computerAttack();
+  if (playerTurn === computer) {
+    const attack = computer.randomPlay();
+    userBoard.receiveAttack(attack);
     playerTurn = user;
   }
-}
-/* module.exports.init = init; */
-module.exports.Player = Player;
+};
+
+/* module.exports.Player = Player;
 module.exports.Gameboard = Gameboard;
-module.exports.Ship = Ship;
+module.exports.Ship = Ship; */
