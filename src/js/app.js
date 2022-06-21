@@ -5,10 +5,10 @@ class Ship {
     this.name = name;
     this.length = length;
     this.coordinates = coordinates;
-    let hits = [];
+    this.hits = [];
   }
     isHit(enemyAttack) {
-      return hits.push(enemyAttack);
+      this.hits.push(enemyAttack);
     }
 
     isSunk() {
@@ -75,6 +75,7 @@ const Gameboard = function () {
       let target = board[attackCoordinates[0]][attackCoordinates[1]];
       if ( target !== null) {
         board[attackCoordinates[0]][attackCoordinates[1]].isHit(attackCoordinates);
+        UI.markBoard(this.board, attackCoordinates);
         return true;
       } else {
           missedShots.push(attackCoordinates);

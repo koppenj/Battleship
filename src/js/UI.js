@@ -8,10 +8,11 @@ export function drawBoards (userBoard, computerBoard) {
 
   players.forEach((player) => {
     for(let i = 0; i < player.board.length; i++) {
-      for (let i = 1; i <= player.board.length; i++) {
+      for (let j = 0; j <= 9; j++) {
         const cell = document.createElement('div');
         cell.classList.add('gridCell');
-        cell.textContent = 'x';
+        cell.textContent = ' ';
+        cell.id = player.board[i][j];
         player.container.style.gridTemplateColumns = `repeat(10, 1fr)`;
         player.container.style.gridTemplateRows = `repeat(10, 1fr)`;
         player.container.appendChild(cell);
@@ -37,4 +38,11 @@ export function autoPlaceShips(userBoard, computerBoard) {
 export function messageControl (message) {
   const notification = document.getElementById('messages');
   return notification.textContent = message;
+}
+
+export function markBoard(targetBoard, attackCoordinates) {
+  console.log(attackCoordinates)
+  console.log(targetBoard[attackCoordinates[0]][attackCoordinates[1]]);
+  targetBoard[attackCoordinates[0]][attackCoordinates[1]].textContent = 'BB';
+
 }
