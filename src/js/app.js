@@ -6,9 +6,9 @@ class Ship {
     this.length = length;
     this.coordinates = coordinates;
     let hits = [];
-
-    isHit: function (enemyAttack) {
-      hits.push(enemyAttack);
+  }
+    isHit(enemyAttack) {
+      return hits.push(enemyAttack);
     }
 
     isSunk() {
@@ -18,8 +18,6 @@ class Ship {
         return false;
       }
     }
-    return { name, length, coordinates, hits, isHit, isSunk };
-  }
 }
 
 const Gameboard = function () {
