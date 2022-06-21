@@ -7,17 +7,17 @@ class Ship {
     this.coordinates = coordinates;
     let hits = [];
 
-    isHit = (enemyAttack) => {
+    isHit: function (enemyAttack) {
       hits.push(enemyAttack);
-    };
+    }
 
-    isSunk = () => {
+    isSunk() {
       if (hits.length >= length) {
         return true;
       } else {
         return false;
       }
-    };
+    }
     return { name, length, coordinates, hits, isHit, isSunk };
   }
 }
@@ -61,7 +61,7 @@ const Gameboard = function () {
     /*  Last Check! The fullPosition array will only be vaild if every requested space for a new ship is available
       This whole function would be a good candidate to implement Throw Error, no?  */
     if(fullPosition.length === shipLength ) {
-      const ship = Ship(name, shipLength, fullPosition);
+      const ship = new Ship(name, shipLength, fullPosition);
       fullPosition.forEach((index) => {
         board[index[0]][index[1]] = ship;
       });
@@ -121,16 +121,18 @@ class Player {
     }
   }
 
-export function game() {
+function game() {
   console.log('ehlllll');
   const user = new Player('user');
-  const userBoard = new Gameboard('userGrid');
+  const userBoard = new Gameboard('userBoard');
   const computer = new Player('computer');
-  const computerBoard = new Gameboard('computerGrid');
+  const computerBoard = new Gameboard('computerBoard');
   let playerTurn = computer;
 
-
+  UI.drawBoards(userBoard, computerBoard);
+  UI.autoPlaceShips(userBoard, computerBoard);
   UI.messageControl(playerTurn.name + `'s turn!`);
+
   if (playerTurn === user) {
     computerBoard.receiveAttack();
     playerTurn = computer;
@@ -141,6 +143,8 @@ export function game() {
     playerTurn = user;
   }
 };
+
+export { game };
 
 /* module.exports.Player = Player;
 module.exports.Gameboard = Gameboard;

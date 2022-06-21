@@ -1,10 +1,10 @@
-export function drawBoards () {
+export function drawBoards (userBoard, computerBoard) {
   const playerGrid = document.querySelector('#playerGrid');
   const enemyGrid = document.querySelector('#enemyGrid');
 
-  const user = { board:game.userBoard.board, container:playerGrid };
-  const enemy = { board:game.computerBoard.board, container:enemyGrid };
-  const players = [user, enemy];
+  const userObj = { board:userBoard.board, container:playerGrid };
+  const computerObj = { board:computerBoard.board, container:enemyGrid };
+  const players = [userObj, computerObj];
 
   players.forEach((player) => {
     for(let i = 0; i < player.board.length; i++) {
@@ -20,18 +20,18 @@ export function drawBoards () {
   })
 };
 
-export function autoPlaceShips() {
-    game.userBoard.placeShip('carrier', [4,4], 'vertical');
-    game.userBoard.placeShip('battleship', [0,0], 'horizontal');
-    game.userBoard.placeShip('destroyer', [6,6], 'horizontal');
-    game.userBoard.placeShip('submarine', [5,0], 'vertical');
-    game.userBoard.placeShip('patrolBoat', [5,5], 'horizontal');
+export function autoPlaceShips(userBoard, computerBoard) {
+    userBoard.placeShip('carrier', [4,4], 'vertical');
+    userBoard.placeShip('battleship', [0,0], 'horizontal');
+    userBoard.placeShip('destroyer', [6,6], 'horizontal');
+    userBoard.placeShip('submarine', [5,0], 'vertical');
+    userBoard.placeShip('patrolBoat', [5,5], 'horizontal');
 
-    game.computerBoard.placeShip('carrier', [4,4], 'vertical');
-    game.computerBoard.placeShip('battleship', [0,0], 'horizontal');
-    game.computerBoard.placeShip('destroyer', [6,6], 'horizontal');
-    game.computerBoard.placeShip('submarine', [5,0], 'vertical');
-    game.computerBoard.placeShip('patrolBoat', [5,5], 'horizontal');
+    computerBoard.placeShip('carrier', [4,4], 'vertical');
+    computerBoard.placeShip('battleship', [0,0], 'horizontal');
+    computerBoard.placeShip('destroyer', [6,6], 'horizontal');
+    computerBoard.placeShip('submarine', [5,0], 'vertical');
+    computerBoard.placeShip('patrolBoat', [5,5], 'horizontal');
 }
 
 export function messageControl (message) {

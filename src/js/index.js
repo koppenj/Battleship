@@ -1,6 +1,8 @@
 import './app';
 import './UI';
-import { game } from './app'
+import { game } from './app';
 const startGame = document.querySelector('#newGame');
-startGame.addEventListener('click', game());
+startGame.addEventListener('click', () => {
+  game();
+});
 
