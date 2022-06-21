@@ -1,7 +1,8 @@
 export function drawBoards (userBoard, computerBoard) {
   const playerGrid = document.querySelector('#playerGrid');
   const enemyGrid = document.querySelector('#enemyGrid');
-
+  const allGrids = document.querySelectorAll('div.grids');
+  console.log(allGrids);
   const userObj = { board:userBoard.board, container:playerGrid };
   const computerObj = { board:computerBoard.board, container:enemyGrid };
   const players = [userObj, computerObj];
@@ -11,8 +12,7 @@ export function drawBoards (userBoard, computerBoard) {
       for (let j = 0; j <= 9; j++) {
         const cell = document.createElement('div');
         cell.classList.add('gridCell');
-        cell.textContent = ' ';
-        cell.id = player.board[i][j];
+        cell.textContent = 'X';
         player.container.style.gridTemplateColumns = `repeat(10, 1fr)`;
         player.container.style.gridTemplateRows = `repeat(10, 1fr)`;
         player.container.appendChild(cell);
@@ -45,4 +45,11 @@ export function markBoard(targetBoard, attackCoordinates) {
   console.log(targetBoard[attackCoordinates[0]][attackCoordinates[1]]);
   targetBoard[attackCoordinates[0]][attackCoordinates[1]].textContent = 'BB';
 
+}
+
+export function wipeBoards() {
+  const boards = document.querySelectorAll('.grids');
+  boards.forEach((board) => {
+    board.replaceChildren();
+  })
 }
