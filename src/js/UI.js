@@ -1,8 +1,6 @@
 export function drawBoards (userBoard, computerBoard) {
   const playerGrid = document.querySelector('#playerGrid');
   const enemyGrid = document.querySelector('#enemyGrid');
-  const allGrids = document.querySelectorAll('div.grids');
-  console.log(allGrids);
   const userObj = { board:userBoard.board, container:playerGrid };
   const computerObj = { board:computerBoard.board, container:enemyGrid };
   const players = [userObj, computerObj];
@@ -12,7 +10,11 @@ export function drawBoards (userBoard, computerBoard) {
       for (let j = 0; j <= 9; j++) {
         const cell = document.createElement('div');
         cell.classList.add('gridCell');
-        cell.textContent = 'X';
+        if(`${player.board[i][j]}` === 'null') {
+          cell.textContent = ' ';
+        } else {
+            cell.textContent = `${player.board[i][j]}`;
+          }
         player.container.style.gridTemplateColumns = `repeat(10, 1fr)`;
         player.container.style.gridTemplateRows = `repeat(10, 1fr)`;
         player.container.appendChild(cell);
@@ -44,7 +46,7 @@ export function markBoard(targetBoard, attackCoordinates) {
   console.log(attackCoordinates)
   console.log(targetBoard[attackCoordinates[0]][attackCoordinates[1]]);
   targetBoard[attackCoordinates[0]][attackCoordinates[1]].textContent = 'BB';
-
+  // How do i connect board to the grid I rendered already?
 }
 
 export function wipeBoards() {

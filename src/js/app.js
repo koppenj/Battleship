@@ -28,7 +28,7 @@ const Gameboard = function () {
   const fleet = { carrier:5, battleship:4, destroyer:3, submarine:3, patrolBoat:2 };
 
   (function drawGrid () {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i <= 9; i++) {
       board[i] = new Array(10).fill(null);
     }
   })();
