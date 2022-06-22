@@ -103,7 +103,7 @@ div.gridCell {
   text-align: center;
 }
 
-div.gridCell:hover {
+div#enemyGrid > *:hover {
   background-color: slategray;
 }
 

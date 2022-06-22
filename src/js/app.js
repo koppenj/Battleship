@@ -131,15 +131,15 @@ function game() {
   UI.drawBoards(userBoard, computerBoard);
   UI.autoPlaceShips(userBoard, computerBoard);
   UI.messageControl(playerTurn.name + `'s turn!`);
-
-  do {
+// Do while is hanging in the browser. I need to give it an async/Promise in the player turn section. Something to pause the loop!
+  /* do {
     if (playerTurn === user) {
       const grid = document.querySelector('#enemyGrid');
       const cells = grid.querySelectorAll(':scope > div');
       cells.forEach((cell) => {
-        cell.addEventListener('click', () => {
-          console.log('touch');
-        });
+      cell.addEventListener('click', () => {
+        console.log('touch');
+      });
       });
 
     }
@@ -150,7 +150,7 @@ function game() {
       UI.messageControl(playerTurn.name + `'s turn!`);
     }
   }
-  while((user.fleetSunk && computer.fleetSunk) === false);
+  while((userBoard.fleetSunk() && computerBoard.fleetSunk()) === false); */
 };
 
 export { game };
