@@ -127,19 +127,30 @@ function game() {
   const computerBoard = new Gameboard('computerBoard');
   let playerTurn = computer;
 
+
   UI.drawBoards(userBoard, computerBoard);
   UI.autoPlaceShips(userBoard, computerBoard);
   UI.messageControl(playerTurn.name + `'s turn!`);
 
-  if (playerTurn === user) {
-    computerBoard.receiveAttack();
-    playerTurn = computer;
+  do {
+    if (playerTurn === user) {
+      const grid = document.querySelector('#enemyGrid');
+      const cells = grid.querySelectorAll(':scope > div');
+      cells.forEach((cell) => {
+        cell.addEventListener('click', () => {
+          console.log('touch');
+        });
+      });
+
+    }
+    if (playerTurn === computer) {
+      const attack = computer.randomPlay();
+      userBoard.receiveAttack(attack);
+      playerTurn = user;
+      UI.messageControl(playerTurn.name + `'s turn!`);
+    }
   }
-  if (playerTurn === computer) {
-    const attack = computer.randomPlay();
-    userBoard.receiveAttack(attack);
-    playerTurn = user;
-  }
+  while((user.fleetSunk && computer.fleetSunk) === false);
 };
 
 export { game };
