@@ -72,10 +72,10 @@ const Gameboard = function () {
 
   function receiveAttack(attackCoordinates) {
     if(inRange(attackCoordinates[0]) && inRange(attackCoordinates[1])) {
-      let target = board[attackCoordinates[0]][attackCoordinates[1]];
+      let target = this.board[attackCoordinates[0]][attackCoordinates[1]];
       if ( target !== null) {
         board[attackCoordinates[0]][attackCoordinates[1]].isHit(attackCoordinates);
-        UI.markBoard(this.board, attackCoordinates);
+        UI.markBoard(attackCoordinates);
         return true;
       } else {
           missedShots.push(attackCoordinates);
@@ -121,7 +121,6 @@ class Player {
   }
 
 function game() {
-  console.log('ehlllll');
   const user = new Player('user');
   const userBoard = new Gameboard('userBoard');
   const computer = new Player('computer');

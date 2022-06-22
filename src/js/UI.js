@@ -10,6 +10,7 @@ export function drawBoards (userBoard, computerBoard) {
       for (let j = 0; j <= 9; j++) {
         const cell = document.createElement('div');
         cell.classList.add('gridCell');
+        cell.id = [i,j];
         if(`${player.board[i][j]}` === 'null') {
           cell.textContent = ' ';
         } else {
@@ -42,11 +43,11 @@ export function messageControl (message) {
   return notification.textContent = message;
 }
 
-export function markBoard(targetBoard, attackCoordinates) {
-  console.log(attackCoordinates)
-  console.log(targetBoard[attackCoordinates[0]][attackCoordinates[1]]);
-  targetBoard[attackCoordinates[0]][attackCoordinates[1]].textContent = 'BB';
-  // How do i connect board to the grid I rendered already?
+export function markBoard(attackCoordinates) {
+  const grid = document.getElementById(`${attackCoordinates}`);
+  console.log('hit');
+  console.log(grid);
+  grid.textContent = 'X';
 }
 
 export function wipeBoards() {
